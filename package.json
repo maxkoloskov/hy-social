@@ -5,10 +5,10 @@
   "author": "Max Koloskov <koloskov.maxim@mail.ru>",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "dev": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/index.ts",
     "dist": "yarn build && yarn run-dist",
     "build": "rimraf ./dist && tsc",
-    "run-dist": "node ./dist/index.js",
+    "run-dist": "TS_NODE_BASEURL=./dist node -r tsconfig-paths/register ./dist/index.js",
     "db-migrate": "npx db-migrate --config database.json -e common",
     "lint": "eslint src/**/*.ts",
     "lint-fix": "eslint src/**/*.ts --fix"
@@ -30,6 +30,7 @@
     "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
     "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.0.0",
     "typescript": "^4.7.4"
   }
 }
