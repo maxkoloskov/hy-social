@@ -1,8 +1,9 @@
 import express, { Router } from 'express';
 import { handleErrorMiddleware, handle404Middleware } from '@/middlewares/error-handle';
 import db from '@/db';
-import authController from '@/controllers/auth';
 import { AppController } from '@/types';
+import { authController } from '@/controllers/auth';
+import { profilesController } from '@/controllers/profile';
 
 const APP_PORT = process.env.APP_PORT || 3000;
 
@@ -12,7 +13,7 @@ class App {
   constructor() {
     this.initDb();
     this.initCommonMiddlewares();
-    this.initControllers([authController]);
+    this.initControllers([authController, profilesController]);
     this.initErrorHandling();
   }
 

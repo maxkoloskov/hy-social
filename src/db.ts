@@ -22,6 +22,7 @@ const db = {
       waitForConnections: true,
       connectionLimit: Number(process.env.MYSQL_CONNECTION_LIMIT || 10),
       queueLimit: 0,
+      namedPlaceholders: true,
     });
   },
 };

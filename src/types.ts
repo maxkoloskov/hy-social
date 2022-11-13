@@ -12,3 +12,15 @@ export interface AppController {
   path: string;
   router: Router;
 }
+
+export type Nullable<V> = V | null;
+
+export interface PaginationOpts {
+  limit?: number;
+  offset?: number;
+}
+
+export interface Items<T> {
+  items: T[];
+  count: number;
+}

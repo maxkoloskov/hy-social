@@ -12,5 +12,3 @@ export const handleErrorMiddleware: ErrorRequestHandler = (err: Error | AppHttpE
 export const handle404Middleware: RequestHandler = (_req, res) => {
   res.status(HttpStatusCode.NOT_FOUND).json({ message: 'Not Found' });
 };
-
-export default handleErrorMiddleware;

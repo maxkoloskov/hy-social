@@ -1,4 +1,4 @@
-import { CreateUserDto, LoginUserCredentialsDto } from '@/models/user';
+import { UserCreateDto, UserLoginCredentialsDto } from '@/models/user';
 import usersRepository from '@/repositories/users';
 import { AccessTokenStoredData } from '@/types';
 import { signJwt } from '@/utils/jwt';
@@ -6,7 +6,7 @@ import { hashPassword } from '@/utils/password-hash';
 import { compare } from 'bcrypt';
 
 class AuthService {
-  async register(userData: CreateUserDto) {
+  async register(userData: UserCreateDto) {
     const user = await usersRepository.findByEmail(userData.email);
 
     if (user) {
@@ -27,7 +27,7 @@ class AuthService {
     };
   }
 
-  async login(userData: LoginUserCredentialsDto) {
+  async login(userData: UserLoginCredentialsDto) {
     const user = await usersRepository.findByEmail(userData.email);
 
     if (!user) {
@@ -48,7 +48,8 @@ class AuthService {
   }
 
   private generateAccessToken(userId: number) {
-    return signJwt<AccessTokenStoredData>({ userId }, { expiresIn: '1m' });
+    const expiresIn = process.env.JWT_TTL || '1h';
+    return signJwt<AccessTokenStoredData>({ userId }, { expiresIn });
   }
 }
 

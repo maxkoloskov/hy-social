@@ -1,6 +1,6 @@
 import { AppHttpError, HttpStatusCode } from '@/common/errors';
 import authMiddleware from '@/middlewares/auth';
-import { CreateUserDto, LoginUserCredentialsDto } from '@/models/user';
+import { UserCreateDto, UserLoginCredentialsDto } from '@/models/user';
 import authService from '@/services/auth';
 import { AppController, RequestWithUserId } from '@/types';
 import { Router, Request, Response, NextFunction } from 'express';
@@ -24,7 +24,7 @@ class AuthController implements AppController {
   }
 
   private async register(req: Request, res: Response, next: NextFunction) {
-    const createUserDto = req.body as CreateUserDto;
+    const createUserDto = req.body as UserCreateDto;
     try {
       const { accessToken } = await authService.register(createUserDto);
       return res.json({ accessToken });
@@ -40,7 +40,7 @@ class AuthController implements AppController {
   }
 
   private async login(req: Request, res: Response, next: NextFunction) {
-    const credentials = req.body as LoginUserCredentialsDto;
+    const credentials = req.body as UserLoginCredentialsDto;
     try {
       const { accessToken } = await authService.login(credentials);
       return res.json({ accessToken });
@@ -57,5 +57,4 @@ class AuthController implements AppController {
 }
 
 const authController = new AuthController();
-
-export default authController;
+export { authController };

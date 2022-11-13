@@ -1,5 +1,5 @@
 import db, { RowDataPacket, ResultSetHeader } from '@/db';
-import { CreateUserDto, User } from '@/models/user';
+import { UserCreateDto, User } from '@/models/user';
 
 class UsersRepository {
   async findById(id: number): Promise<User | null> {
@@ -24,7 +24,7 @@ class UsersRepository {
     return rows[0] as User;
   }
 
-  async create(user: CreateUserDto): Promise<number> {
+  async create(user: UserCreateDto): Promise<number> {
     const queryString = `
       INSERT INTO user (
         email,
